@@ -1,0 +1,87 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model IEnumerable<Se3355Final.Models.Car>
+
+@{
+    ViewData["Title"] = "Vehicle List";
+}
+
+<div class="container mt-3">
+    <div class="row mb-3">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Vehicle List</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <form method="get">
+                <h4>Filter</h4>
+                <div class="form-group">
+                    <label for="make">Make</label>
+                    <input type="text" class="form-control" id="make" name="make" placeholder="Make">
+                </div>
+                <div class="form-group">
+                    <label for="sortOrder">Sort By</label>
+                    <select class="form-control" id="sortOrder" name="sortOrder">
+                        <option value="price_desc">Price (Descending)</option>
+                        <option value="price">Price (Ascending)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transmission">Transmission</label>
+                    <select class="form-control" id="transmission" name="transmission">
+                        <option value="">All Transmissions</option>
+                        <option value="Automatic">Automatic</option>
+                        <option value="Manual">Manual</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
+        </div>
+        <div class="col-md-9">
+            <h2>Vehicle List</h2>
+            <div class="row">
+                @foreach (var vehicle in Model)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img class="card-img-top" src="@vehicle.imageUrl" alt="@vehicle.Make @vehicle.Model" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">@vehicle.Make @vehicle.Model</h5>
+                                <p class="card-text">
+                                    Transmission: @vehicle.Transmission<br>
+                                    Deposit: @vehicle.Deposit<br>
+                                    Mileage: @vehicle.Mileage km<br>
+                                    Age: @vehicle.Age years<br>
+                                    Price: @vehicle.Price per day
+                                </p>
+                                <a href="#" class="btn btn-primary">Rent Now</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Özel CSS kuralları burada eklenebilir */
+    </style>
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Özel JavaScript kodları buraya eklenebilir
+    </script>
+}

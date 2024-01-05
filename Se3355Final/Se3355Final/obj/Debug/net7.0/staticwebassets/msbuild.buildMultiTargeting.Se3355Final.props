@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/Se3355Final.props" />
+</Project>

@@ -2,6 +2,8 @@
 
 ## Overview
 This application is a comprehensive car rental service developed as the final project for SE3355. Built with the robust .NET MVC 7.0 framework and leveraging Azure SQL Database, the application embodies modern web development practices including a repository pattern and a code-first approach for database schema creation. Key features include Google Authentication for secure login, location-based car search functionality, advanced vehicle filtering options, and interactive mapping with Mapbox API.
+###Deployment
+The application is deployed and can be accessed [here](https://se3355final.azurewebsites.net/).
 
 ### Key Features
 - **Google Authentication:** Secure user authentication process.

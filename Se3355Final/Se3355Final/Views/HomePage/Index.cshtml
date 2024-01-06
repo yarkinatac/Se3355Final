@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anasayfa | Araç Kiralama</title>
+    <title>Anasayfa | Rent A Car</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
     <style>
         body { margin: 0; padding: 0; }
-        .container-fluid { display: flex; padding: 0; }
-        .left-container { flex: 7; padding: 15px; }
-        .right-container { flex: 3; padding: 15px; }
+        .container-fluid { display: flex; flex-wrap: wrap; padding: 0; }
+        .left-container { flex: 1; padding: 15px; }
+        .right-container { flex: 1; padding: 15px; }
         #map { position: relative; width: 100%; height: 100%; }
     </style>
 </head>
@@ -20,37 +20,37 @@
 <div class="container-fluid">
     <div class="left-container">
         <div class="jumbotron">
-            <h1 class="display-4">Araç Kiralama</h1>
+            <h1 class="display-4">Rent A Car</h1>
             <p class="lead">İstediğiniz zaman, istediğiniz yerden araç kiralayın.</p>
             <hr class="my-4">
             <form action="/Vehicle/Index" method="post" id="locationForm">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="pickupLocation">Teslim Alma Ofisi</label>
-                        <select class="form-control" id="pickupLocation" name="pickupLocation">
-                            <option value="">Ofis seçiniz</option>
-                            @foreach (var office in Model)
-                            {
-                                <option value="@office.Name">@office.Name</option>
-                            }
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label for="pickupDate">Alış Tarihi</label>
-                        <input type="date" class="form-control" id="pickupDate" name="pickupDate">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="dropoffDate">İade Tarihi</label>
-                        <input type="date" class="form-control" id="dropoffDate" name="dropoffDate">
-                    </div>
+                <div class="form-group">
+                    <label for="pickupLocation">Offices</label>
+                    <select class="form-control" id="pickupLocation" name="pickupLocation" required>
+                        <option value="">Choose office</option>
+                        @foreach (var office in Model)
+                        {
+                            <option value="@office.Name">@office.Name</option>
+                        }
+                    </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="pickupDate">Alış Tarihi</label>
+                    <input type="date" class="form-control" id="pickupDate" name="pickupDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="dropoffDate">İade Tarihi</label>
+                    <input type="date" class="form-control" id="dropoffDate" name="dropoffDate" required>
+                </div>
+                <div id="error-message" style="color: red;"></div>
+
 
                 <!-- Gizli inputlar konum bilgisi için -->
                 <input type="hidden" id="latitude" name="latitude" value="">
                 <input type="hidden" id="longitude" name="longitude" value="">
 
-                <button type="button" class="btn btn-primary" onclick="getLocationAndSubmit()">Araç Bul</button>
+                <button type="button" class="btn btn-primary" onclick="getLocationAndSubmit()">Find Car</button>
             </form>
         </div>
 
@@ -58,12 +58,9 @@
             @foreach (var office in Model)
             {
                 <a href="#" class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">@office.Name</h5>
-                        <small>20 km yakında</small>
-                    </div>
+                    <h5 class="mb-1">@office.Name</h5>
                     <p class="mb-1">@office.Address</p>
-                    <small>Telefon: @office</small>
+                    <small>Phone: @office</small>
                 </a>
             }
         </div>
@@ -74,7 +71,7 @@
 </div>
 
 <form asp-action="Logout" method="post" asp-controller="Account">
-    <button type="submit" class="btn btn-link">Çıkış Yap</button>
+    <button type="submit" class="btn btn-link">Logout</button>
 </form>
 
 <script>
@@ -100,6 +97,16 @@
     });
 
     function getLocationAndSubmit() {
+        var pickupLocation = document.getElementById('pickupLocation').value;
+        var pickupDate = document.getElementById('pickupDate').value;
+        var dropoffDate = document.getElementById('dropoffDate').value;
+    
+        if (!pickupLocation || !pickupDate || !dropoffDate) {
+            document.getElementById('error-message').textContent = 'Please fill all the required fields.';
+            return; 
+        }
+    
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 document.getElementById('latitude').value = position.coords.latitude;
@@ -110,6 +117,7 @@
             alert("Geolocation is not supported by this browser.");
         }
     }
+
 
     function showError(error) {
         switch(error.code) {

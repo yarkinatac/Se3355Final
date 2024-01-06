@@ -1,4 +1,3 @@
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,16 +25,16 @@
             <hr class="my-4">
             <form action="/Vehicle/Index" method="post" id="locationForm">
                 <div class="form-row">
-                   <div class="form-group col-md-6">
-                       <label for="pickupLocation">Teslim Alma Ofisi</label>
-                       <select class="form-control" id="pickupLocation" name="pickupLocation">
-                           <option value="">Ofis seçiniz</option>
-                           @foreach (var office in Model)
-                           {
-                               <option value="@office.Name">@office.Name</option>
-                           }
-                       </select>
-                   </div>
+                    <div class="form-group col-md-6">
+                        <label for="pickupLocation">Teslim Alma Ofisi</label>
+                        <select class="form-control" id="pickupLocation" name="pickupLocation">
+                            <option value="">Ofis seçiniz</option>
+                            @foreach (var office in Model)
+                            {
+                                <option value="@office.Name">@office.Name</option>
+                            }
+                        </select>
+                    </div>
 
                     <div class="form-group col-md-3">
                         <label for="pickupDate">Alış Tarihi</label>
@@ -46,6 +45,11 @@
                         <input type="date" class="form-control" id="dropoffDate" name="dropoffDate">
                     </div>
                 </div>
+
+                <!-- Gizli inputlar konum bilgisi için -->
+                <input type="hidden" id="latitude" name="latitude" value="">
+                <input type="hidden" id="longitude" name="longitude" value="">
+
                 <button type="button" class="btn btn-primary" onclick="getLocationAndSubmit()">Araç Bul</button>
             </form>
         </div>
@@ -74,68 +78,55 @@
 </form>
 
 <script>
-mapboxgl.accessToken = 'pk.eyJ1IjoieWFya2luYXRhYyIsImEiOiJjbGh6NWp0bXEwMmlwM2Z1bm5nem4yNWgzIn0.c_6W9rUun9qh1Q6GIcZBUA';
-const map = new mapboxgl.Map({
-    container: 'map', 
-    style: 'mapbox://styles/mapbox/streets-v11',
-    center: [27.142826, 38.423733], 
-    zoom: 4
-});
+    mapboxgl.accessToken = 'pk.eyJ1IjoieWFya2luYXRhYyIsImEiOiJjbGh6NWp0bXEwMmlwM2Z1bm5nem4yNWgzIn0.c_6W9rUun9qh1Q6GIcZBUA';
+    const map = new mapboxgl.Map({
+        container: 'map', 
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [27.142826, 38.423733], 
+        zoom: 4
+    });
 
-// İzmir, İstanbul ve Ankara koordinatları
-const cities = [
-    { name: 'İzmir Office', lng: 27.142826, lat: 38.423733 },
-    { name: 'İstanbul Office', lng: 28.978359, lat: 41.008240 },
-    { name: 'Ankara Office', lng: 32.859741, lat: 39.933365 }
-];
+    const cities = [
+        { name: 'İzmir Office', lng: 27.142826, lat: 38.423733 },
+        { name: 'İstanbul Office', lng: 28.978359, lat: 41.008240 },
+        { name: 'Ankara Office', lng: 32.859741, lat: 39.933365 }
+    ];
 
-// Her bir şehir için bir marker oluşturun ve haritaya ekleyin
-cities.forEach((city, index) => {
-    new mapboxgl.Marker({ color: 'red' })
-        .setLngLat([city.lng, city.lat])
-        .setPopup(new mapboxgl.Popup().setHTML(`<h3>${city.name}</h3>`))
-        .addTo(map);
-});
+    cities.forEach((city, index) => {
+        new mapboxgl.Marker({ color: 'red' })
+            .setLngLat([city.lng, city.lat])
+            .setPopup(new mapboxgl.Popup().setHTML(`<h3>${city.name}</h3>`))
+            .addTo(map);
+    });
 
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition, showError);
-  } else { 
-    alert("Geolocation is not supported by this browser.");
-  }
-}
-
-function showPosition(position) {
-  alert("Latitude: " + position.coords.latitude + 
-  "\nLongitude: " + position.coords.longitude);
-}
-
-function showError(error) {
-  switch(error.code) {
-    case error.PERMISSION_DENIED:
-      alert("User denied the request for Geolocation.");
-      break;
-    case error.POSITION_UNAVAILABLE:
-      alert("Location information is unavailable.");
-      break;
-    case error.TIMEOUT:
-      alert("The request to get user location timed out.");
-      break;
-    case error.UNKNOWN_ERROR:
-      alert("An unknown error occurred.");
-      break;
-  }
-}
-function getLocationAndSubmit() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            // Konum alındıktan sonra formu göndermek için
-            document.getElementById('locationForm').submit();
-        }, showError);
-    } else { 
-        alert("Geolocation is not supported by this browser.");
+    function getLocationAndSubmit() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                document.getElementById('latitude').value = position.coords.latitude;
+                document.getElementById('longitude').value = position.coords.longitude;
+                document.getElementById('locationForm').submit();
+            }, showError);
+        } else { 
+            alert("Geolocation is not supported by this browser.");
+        }
     }
-}
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+        }
+    }
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

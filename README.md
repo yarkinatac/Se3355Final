@@ -1,36 +1,30 @@
-# SE3355 Final Project
+# SE3355 Final Project - Car Rental Service
 
 ## Overview
-Welcome to my final project for SE3355! This application is a car rental service built with .NET MVC 7.0 and hosted on an Azure SQL Database. Utilizing a repository pattern and a code-first approach, the application allows users to log in using Google authentication, find nearby rental cars based on their location, and filter vehicles based on various attributes. The application features an interactive map powered by Mapbox API.
+This application is a comprehensive car rental service developed as the final project for SE3355. Built with the robust .NET MVC 7.0 framework and leveraging Azure SQL Database, the application embodies modern web development practices including a repository pattern and a code-first approach for database schema creation. Key features include Google Authentication for secure login, location-based car search functionality, advanced vehicle filtering options, and interactive mapping with Mapbox API.
 
-### Key Features:
-- Google Authentication for secure login.
-- Location-based car search to find the nearest available cars.
-- Advanced filtering on the Vehicles page for tailored search results.
-- Interactive map integration using Mapbox API.
-- Connection to Azure SQL Database using "DefaultConnection" with SQL Authentication.
+### Key Features
+- **Google Authentication:** Secure user authentication process.
+- **Location-Based Car Search:** Utilize user's location to find the nearest rental cars.
+- **Advanced Vehicle Filtering:** Filter car options based on specific attributes.
+- **Interactive Mapping:** Integration of Mapbox API for enhanced user experience.
+- **Azure SQL Database Connection:** Reliable database management with "DefaultConnection" string.
 
 ## Technology Stack
-- .NET MVC 7.0
-- Azure SQL Database
-- Entity Framework Core
-- Entity Framework Core Design
-- Entity Framework Core Tools
-- Entity Framework Core SqlServer
-- Google API
+- **.NET MVC 7.0:** For robust backend development.
+- **Azure SQL Database:** Cloud-based database service for high availability.
+- **Entity Framework Core:** ORM for .NET applications.
+- **Google API:** For authentication and other Google services integration.
 
 ## Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
+Before you begin, ensure you have the following installed:
 - .NET 7.0 SDK
-- Azure account for Azure SQL Database (Optional for local testing)
-- Google API key for Google Authentication
+- Azure SQL Database account (optional for local development)
+- Google API Key for authentication services
 
 ### Installation
-Follow these steps to set up your local development environment:
+To set up the project locally, follow these steps:
 
-```bash
-git clone [repository-link]
-cd [repository-name]
-# additional steps like 'dotnet restore' might be required
+

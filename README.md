@@ -1,26 +1,36 @@
-#SE3355 FİNAL PROJECT
-Overview
-Here is my final project. I used a .net 7.0 mvc and for the database AzureSql. In my project I used a Repository Pattern and also code-first approach for the creating a database schema?. I use a seed.cs for the seeding database for examples. In Login Page you can use a google authentication and HomePage you can allow the location for the find a car which is closest to you. Vehicles pages you can filtering car attributes. For the MAP which is in HomePage I use Mapbox api. For the connecting the database I use a ConnectionString which name is "DefaultConnection" and it provide a connect my app and azureqql with the SqlAuthentication
-I used EntitiyFrameWorkCore,EntitiyFrameWorkCore.Design, EntitiyFrameWorkCore.Tools. EntitiyFrameWorkCore.SqlServer and google api 
+# SE3355 Final Project
 
+## Overview
+Welcome to my final project for SE3355! This application is a car rental service built with .NET MVC 7.0 and hosted on an Azure SQL Database. Utilizing a repository pattern and a code-first approach, the application allows users to log in using Google authentication, find nearby rental cars based on their location, and filter vehicles based on various attributes. The application features an interactive map powered by Mapbox API.
 
-Technology Stack
-.NET MVC 7.0
-Azure SQL Database
-Getting Started
-Instructions on how to set up the project locally.
+### Key Features:
+- Google Authentication for secure login.
+- Location-based car search to find the nearest available cars.
+- Advanced filtering on the Vehicles page for tailored search results.
+- Interactive map integration using Mapbox API.
+- Connection to Azure SQL Database using "DefaultConnection" with SQL Authentication.
 
-Prerequisites
-List of prerequisites such as .NET 7.0 SDK, etc.
-Installation
-Step-by-step guide to clone the repo and set up the environment.
+## Technology Stack
+- .NET MVC 7.0
+- Azure SQL Database
+- Entity Framework Core
+- Entity Framework Core Design
+- Entity Framework Core Tools
+- Entity Framework Core SqlServer
+- Google API
 
-bash
-Copy code
+## Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+- .NET 7.0 SDK
+- Azure account for Azure SQL Database (Optional for local testing)
+- Google API key for Google Authentication
+
+### Installation
+Follow these steps to set up your local development environment:
+
+```bash
 git clone [repository-link]
 cd [repository-name]
-
-
-Deployment
-The application is deployed at https://se3355final.azurewebsites.net/.
-
+# additional steps like 'dotnet restore' might be required

@@ -28,7 +28,7 @@ Before you begin, ensure you have the following installed:
 - Azure SQL Database account (optional for local development)
 - Google API Key for authentication services
 
-### Installation
-To set up the project locally, follow these steps:
+
+
 
 
